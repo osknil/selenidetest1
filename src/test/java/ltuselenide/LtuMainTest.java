@@ -14,6 +14,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Screenshots.takeScreenShotAsFile;
@@ -36,7 +40,6 @@ public class LtuMainTest {
         ltuMain.inputPassword.sendKeys(loginCred.getPassword());
         ltuMain.finishLogin.click();
     }
-
 
     /*@Test
     public void fetchCertificate() {
@@ -89,7 +92,9 @@ public class LtuMainTest {
         ltuMain.searchExam.click();
         ltuMain.examInfo.shouldBe(Condition.visible).click();
         switchTo().window(2);
-
+    }
+    /*  @Test
+        public void takeScreenshot(){
         Path path = Paths.get("C:/Users/User/JetBrainsProjects/selenidetest1/target/files/screenshots");
         if (!Files.exists(path)) {
             try {
@@ -110,11 +115,19 @@ public class LtuMainTest {
             e.printStackTrace();
         }
     }
-
+*/
     @Test
     public void courseSyllabus() {
-        Configuration.downloadsFolder = ("C:/Users/User/JetBrainsProjects/selenidetest1/target/files/downloads");
-        Configuration.fileDownload = FileDownloadMode.FOLDER;
+
+    /*    ChromeOptions options = new ChromeOptions();
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("download.default_directory", "C:/Users/User/JetBrainsProjects/selenidetest1/target/files/downloads/");
+        options.setExperimentalOption("prefs", prefs);
+
+        WebDriver driver = new ChromeDriver(options);
+*/
+      //  Configuration.fileDownload = FileDownloadMode.FOLDER;
+        Configuration.downloadsFolder = ("C:/Users/User/JetBrainsProjects/selenidetest1/target/files/downloads/");
         switchTo().window(0);
         ltuMain.dropDownCourses.click();
         ltuMain.searchEducation.shouldBe(Condition.visible).click();
@@ -129,8 +142,6 @@ public class LtuMainTest {
         ltuMain.linkSyllabus.shouldBe(Condition.visible).click();
         ltuMain.downloadSyllabus.click();
 
-        //TODO: Det är nånstans här nedanför som är orsaken till att det skapas en mapp varje gång i target/files/downloads, men vet inte varför.
-        //Todo: Source?
 
         File pdfFile = null;
         try {
